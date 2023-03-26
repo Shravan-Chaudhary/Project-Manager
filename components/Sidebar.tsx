@@ -1,32 +1,28 @@
-'use client'
-import Link from 'next/link'
-import { Settings, User, Grid, Calendar } from 'react-feather'
-import { usePathname } from 'next/navigation'
-import clsx from 'clsx'
+import Card from './Card'
+import Image from 'next/image'
+import SidebarLink from './SidebarLink'
 
-const icons = { Settings, User, Grid, Calendar }
+const links = [
+  { label: 'Home', icon: 'Grid', link: '/home' },
+  {
+    label: 'Calendar',
+    icon: 'Calendar',
+    link: '/calendar',
+  },
+  { label: 'Profile', icon: 'User', link: '/profile' },
+  {
+    label: 'Settings',
+    icon: 'Settings',
+    link: '/settings',
+  },
+]
 
-const SidebarLink = ({ link }) => {
-  const pathname = usePathname()
-  let isActive = false
-
-  if (pathname === link.link) {
-    isActive = true
-  }
-
-  const Icon = icons[link.icon]
-
+const SideBar = () => {
   return (
-    <Link href={link.link}>
-      <Icon
-        size={40}
-        className={clsx(
-          'stroke-gray-400 hover:stroke-violet-600 transition duration-200 ease-in-out',
-          isActive && 'stroke-violet-600',
-        )}
-      />
-    </Link>
+    <Card className='h-full w-40 flex items-center justify-between flex-wrap'>
+      {links.map((link, index) => (
+        <SidebarLink key={index} link={link} />
+      ))}
+    </Card>
   )
 }
-
-export default SidebarLink
